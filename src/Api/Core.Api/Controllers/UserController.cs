@@ -1,4 +1,5 @@
 ﻿using Core.Api.Contracts.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Api.Controllers
@@ -12,6 +13,7 @@ namespace Core.Api.Controllers
             _userService = userService ?? throw new ArgumentNullException();
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult>List()
         {

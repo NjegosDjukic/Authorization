@@ -10,6 +10,9 @@
 *.userosscache
 *.sln.docstates
 
+appsettings.Development.json
+/secrets/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -475,3 +478,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+/src/Api/Core.Api/appsettings.json
+/src/Api/Core.Api/appsettings.Development.json
+/src/Api/Core.Api/secrets/permission-based-authorization-firebase-adminsdk-fej52-1f7d27f597.json
