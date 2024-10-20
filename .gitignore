@@ -481,3 +481,4 @@ $RECYCLE.BIN/
 /src/Api/Core.Api/appsettings.json
 /src/Api/Core.Api/appsettings.Development.json
 /src/Api/Core.Api/secrets/permission-based-authorization-firebase-adminsdk-fej52-1f7d27f597.json
+/src/Api/Core.Api/appsettings.Development.json
