@@ -9,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -19,17 +18,29 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddTransient<DataSeeder>();
 
 var app = builder.Build();
 
+// Call SeedData method here to use it
+SeedData(app);
 
+static void SeedData(WebApplication app)
+{
+    var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
+
+    using (var scope = scopedFactory.CreateScope())
+    {
+        var service = scope.ServiceProvider.GetService<DataSeeder>();
+        service.Seed();
+    }
+}
 
 app.UseCors(x => x
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials()
-            //.WithOrigins("https://localhost:44351")); // Allow only this origin can also have multiple origins seperated with comma
-            .SetIsOriginAllowed(origin => true));// Allow any origin  
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials()
+    .SetIsOriginAllowed(origin => true));
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -39,9 +50,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
