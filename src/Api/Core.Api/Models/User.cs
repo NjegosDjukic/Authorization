@@ -1,9 +1,15 @@
 ﻿using Core.Api.Models.Common;
+using Core.Api.Models.Enums;
 
 namespace Core.Api.Models;
 
 public class User : IBaseEntity
 {
+
+    public User()
+    {
+        IsSuperAdmin = false;
+    }
     public int Id { get; set; }
     public string Name { get; set; }
     public string Email { get; set; }

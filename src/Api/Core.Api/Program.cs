@@ -1,4 +1,7 @@
+using Core.Api.Contracts.Services;
 using Core.Api.Data;
+using Core.Api.MappingProfiles;
+using Core.Api.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddAutoMapper(typeof(UserMappingProfile));
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
