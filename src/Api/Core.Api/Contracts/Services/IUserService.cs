@@ -6,4 +6,5 @@ namespace Core.Api.Contracts.Services;
 public interface IUserService
 {
     Task<List<UserResponseDto>> List();
+    User GetCurrentUser();
 }

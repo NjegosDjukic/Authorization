@@ -1,7 +1,7 @@
 ﻿using Core.Api.Models.Enums;
-using Core.API.Common.Constants;
-using Core.API.Models;
+using Core.Api.Models;
 using Microsoft.EntityFrameworkCore;
+using Core.API.Common.Constants;
 
 namespace Core.Api.Data
 {
@@ -24,7 +24,8 @@ namespace Core.Api.Data
                 var permission = new Permission
                 {
                     Id = (int)permissionEnum,
-                    Value = permissionEnum
+                    Value = permissionEnum,
+                    Name = Enum.GetName(typeof(PermissionValue), permissionEnum)
                 };
 
                 if (!_dbContext.Permissions.Any(p => p.Id == permission.Id))

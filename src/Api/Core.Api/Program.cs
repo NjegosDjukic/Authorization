@@ -6,17 +6,22 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Net.Http.Headers;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
-using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 using Core.API.Auth;
+using System.Text.Json.Serialization;
+using Core.API.MappingProfiles.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
 {
@@ -48,6 +53,7 @@ builder.Services.AddSwaggerGen(option =>
 
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddAutoMapper(typeof(UserMappingProfile));
+builder.Services.AddAutoMapper(typeof(RoleMappingProfile));
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -56,6 +62,8 @@ builder.Services.AddTransient<DataSeeder>();
 
 builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+builder.Services.AddHttpContextAccessor();
+
 
 var firebaseProjectId = builder.Configuration["FirebaseAuthClientConfig:ProjectId"];
 var tokenValidationParameters = new TokenValidationParameters

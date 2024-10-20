@@ -1,8 +1,7 @@
 ﻿using Core.Api.Data;
-using Core.API.Common.Constants;
+using Core.Api.Data.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-
 
 namespace Core.API.Auth;
 

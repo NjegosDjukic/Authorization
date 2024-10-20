@@ -1,9 +1,10 @@
-﻿namespace Core.API.Models;
+﻿namespace Core.Api.Models;
 
+using Core.Api.Models.Common;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-public class Role
+public class Role : IIdentity
 {
     public Role()
     {

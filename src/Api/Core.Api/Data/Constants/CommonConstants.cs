@@ -1,4 +1,4 @@
-﻿namespace Core.API.Common.Constants;
+﻿namespace Core.Api.Data.Constants;
 
 public static class CommonConstants
 {

@@ -1,6 +1,4 @@
-﻿using Core.API.Models;
-using Core.Api.Models;
-using Core.API.Models;
+﻿using Core.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Core.Api.Data;
